@@ -1,0 +1,50 @@
+.link {
+    color: black;
+    cursor: pointer;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: aqua;
+}
+
+.linkArrowed {
+    color: #2175FF;
+    display: flex;
+    height: 2rem;
+    line-height: 2rem;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease-in-out;
+}
+
+.linkArrowed:hover {
+    color: #0d1e60;
+    transform: scale(1.1);
+}
+
+.linkArrowed .arrowIcon {
+    position: relative;
+    margin-left: 1rem;
+    top: 10px;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+    vertical-align: middle;
+}
+
+.linkArrowed .arrowIconCircle {
+    transition: stroke-dashoffset 0.3s ease;
+    stroke-dasharray: 95;
+    stroke-dashoffset: 95;
+}
+
+.linkArrowed:hover .arrowIcon {
+    transform: translate3d(5px, 0, 0);
+}
+
+.linkArrowed:hover .arrowIconCircle {
+    stroke-dashoffset: 0;
+}

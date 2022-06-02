@@ -10,7 +10,12 @@ export default function Footer() {
           width="20"
           src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"
         />{" "}
-        By Faqih Ethana Prabandaru, All Rights Reserved
+        By{" "}
+        <a href="https://faqihethana.com" target="_blank" rel="noreferrer">
+          {" "}
+          Faqih Ethana Prabandaru{" "}
+        </a>
+        , All Rights Reserved
       </div>
     </footer>
   );
