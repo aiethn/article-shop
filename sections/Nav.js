@@ -13,7 +13,7 @@ import { WindowSize } from "../middleware/WindowSize";
 import styles from "../styles/Nav.module.css";
 
 export default function Nav() {
-  const coins = useSelector((state) => state.cart.coins);
+  const cart = useSelector((state) => state.cart);
   const [scroll, setScroll] = useState(false);
   const size = WindowSize();
   const handleScroll = () => {
@@ -52,12 +52,23 @@ export default function Nav() {
             )}
           </nav>
 
-          <div className="absolute right-36 top-4 flex">
-            <FontAwesomeIcon icon={faCoins} className="w-6 mr-2" />
-            <p className="font-bold">{coins}</p>
+          <div className="absolute right-40 top-4 flex">
+            <Link href="/coins">
+              <FontAwesomeIcon
+                icon={faCoins}
+                className="w-6 mr-2 cursor-pointer"
+              />
+            </Link>
+            <p className="font-bold">{cart.coins}</p>
           </div>
           <div className="absolute right-24 top-4 flex">
-            <FontAwesomeIcon icon={faTicket} className="w-6 mr-2" />
+            <Link href="/ticket">
+              <FontAwesomeIcon
+                icon={faTicket}
+                className="w-6 mr-2 cursor-pointer"
+              />
+            </Link>
+            <p className="font-bold">{cart.ticket}</p>
           </div>
           <div className="absolute right-14 top-4 w-6 cursor-pointer">
             <Link href="/cart">

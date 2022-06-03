@@ -10,7 +10,7 @@ export default function MyArticle() {
         <h2 className="font-bold text-3xl">Purchased Items</h2>
       </div>
       {article.length < 1 ? (
-        <div className="text-center h-60 align-center flex items-center justify-center">
+        <div className="text-center text-3xl font-bold h-60 align-center flex items-center justify-center">
           No item purchased yet
         </div>
       ) : (

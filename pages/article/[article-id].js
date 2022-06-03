@@ -63,9 +63,13 @@ export default function ArticleID() {
         <div className="drop-shadow-2xl ">
           <Image
             src={
-              selectedArticle
+              selectedArticle.media?.[0]?.["media-metadata"]?.[2].url
                 ? selectedArticle.media?.[0]["media-metadata"]?.[2].url
-                : "/"
+                : selectedArticle.media?.[0]?.["media-metadata"]?.[1].url
+                ? selectedArticle.media?.[0]["media-metadata"]?.[1].url
+                : selectedArticle.media?.[0]?.["media-metadata"]?.[0].url
+                ? selectedArticle.media?.[0]["media-metadata"]?.[0].url
+                : "/banner.jpg"
             }
             alt="news image"
             width={400}
