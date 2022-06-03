@@ -36,21 +36,21 @@ export default function Nav() {
           : ""
       }  backdrop-blur supports-backdrop-blur:bg-white/95 fixed py-1 w-full top-0 z-40 dark:bg-black/50`}
     >
-      <div className="flex justify-center w-full">
-        <div className="mx-auto md:w-[950px] w-96 relative">
-          <nav className="flex md:justify-center space-x-2 w-5xl my-4 text-xl">
-            {size.width < 639 ? (
-              <FontAwesomeIcon icon={faHome} className="w-6" />
-            ) : (
-              <Link href="/">
+      <div className="flex justify-center w-full mx-2">
+        <div className="mx-auto md:w-[950px] w-96 relative ">
+          <Link href="/">
+            <nav className="flex md:justify-center space-x-2 w-5xl my-4 text-xl ">
+              {size.width < 639 ? (
+                <FontAwesomeIcon icon={faHome} className="w-6 cursor-pointer" />
+              ) : (
                 <a
-                  className={`${styles.linkUnderline} px-4 font-display max-w-sm font-bold font-poppins leading-tight`}
+                  className={`${styles.linkUnderline} px-4 pb-2 font-display max-w-sm font-bold font-poppins leading-tight cursor-pointer`}
                 >
                   Home
                 </a>
-              </Link>
-            )}
-          </nav>
+              )}
+            </nav>
+          </Link>
 
           <div className="absolute right-40 top-4 flex">
             <Link href="/coins">
