@@ -90,7 +90,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex justify-end ">
+      <div className="flex justify-end">
         <Select
           instanceId="1"
           isSearchable={false}

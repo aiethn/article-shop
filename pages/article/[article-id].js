@@ -4,10 +4,9 @@ import { useSelector } from "react-redux";
 import styles from "../../styles/Article.module.css";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBasketShopping,
-  faCreditCard,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import { BuyConfirmError } from "../../components/modals/buyConfirmError";
+import { BuyConfirmSuccess } from "../../components/modals/buyConfirmSuccess";
 
 export default function ArticleID() {
   const router = useRouter();
@@ -17,6 +16,7 @@ export default function ArticleID() {
   const [selectedArticle, setSelectedArticle] = useState("");
   const [articlePrice, setArticlePrice] = useState("");
   const [isBought, setIsBought] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState("");
 
   const d = new Date();
   let time = d.getTime();
@@ -34,6 +34,10 @@ export default function ArticleID() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   checkIsPurchased(selectedArticle);
+  // }, [showBuyModal]);
+
   useEffect(() => {
     const artDate = Date.parse(selectedArticle.published_date);
     const convertedDate = (time - artDate) / day;
@@ -42,30 +46,41 @@ export default function ArticleID() {
     setArticlePrice(articlePrices);
   }, [selectedArticle]);
 
-  const checkIsPurchased = (item) => {};
+  const handleOnConfirm = () => {
+    if (articlePrice <= cart.coins) {
+      setShowBuyModal("success");
+    } else setShowBuyModal("error");
+  };
 
-  console.log(articlePrice);
+  const checkIsPurchased = (item) => {
+    const avail = cart.itemPurchased.find((x) => x.id == item.id);
+    if (avail) setIsBought(true);
+  };
 
   return (
     <div>
       <div className="flex justify-center flex-col align-center items-center">
-        <Image
-          src={
-            selectedArticle
-              ? selectedArticle.media?.[0]["media-metadata"]?.[2].url
-              : "/"
-          }
-          alt="news image"
-          width={400}
-          height={300}
-          className="drop-shadow-2xl"
-        />
+        <div className="drop-shadow-2xl ">
+          <Image
+            src={
+              selectedArticle
+                ? selectedArticle.media?.[0]["media-metadata"]?.[2].url
+                : "/"
+            }
+            alt="news image"
+            width={400}
+            height={300}
+            className="rounded-xl"
+          />
+        </div>
         <h2 className="font-bold text-2xl pt-6">{selectedArticle.title}</h2>
         <p className="text-sm py-2">
           {selectedArticle.published_date}{" "}
           <span className="font-bold ml-2">{selectedArticle.byline} </span>
         </p>
-        <p className="mt-4">{selectedArticle.abstract}</p>
+        <p className="mt-4 text-left justify-start">
+          {selectedArticle.abstract}
+        </p>
       </div>
       {isBought ? (
         <div className="flex justify-end">
@@ -106,19 +121,36 @@ export default function ArticleID() {
       ) : (
         <div className="flex justify-between h-40 align-center items-center">
           <div className="text-2xl text-center">
-            Price : <span className="font-bold">{articlePrice}</span>{" "}
+            Price :{" "}
+            <span className="font-bold">
+              {articlePrice == 0 ? "FREE" : articlePrice}
+            </span>{" "}
           </div>
           <div className="flex h-16 text-center">
             {/* <div className="flex align-center justify-center items-center p-2 border-2 cursor-pointer hover:bg-gray-200 mr-4 rounded-md">
               <FontAwesomeIcon icon={faBasketShopping} className="w-6 mr-2" />
               <p>Add To Cart</p>
             </div> */}
-            <div className="flex align-center justify-center items-center p-2 border-2 cursor-pointer hover:bg-gray-200 rounded-md">
+            <button
+              onClick={(e) => handleOnConfirm()}
+              className="flex align-center justify-center items-center bg-white px-5 py-2 text-sm shadow-sm bg-teal-300 tracking-wider border rounded-xl hover:shadow-lg hover:bg-teal-600 hover:text-white"
+            >
               <FontAwesomeIcon icon={faCreditCard} className="w-6 mr-2" />
               <p>Buy Item</p>
-            </div>
+            </button>
           </div>
         </div>
+      )}
+      {showBuyModal === "success" && (
+        <BuyConfirmSuccess
+          checkIsPurchased={(e) => checkIsPurchased(e)}
+          item={selectedArticle}
+          coins={articlePrice}
+          setShowBuyModal={(e) => setShowBuyModal(e)}
+        />
+      )}
+      {showBuyModal === "error" && (
+        <BuyConfirmError setShowBuyModal={(e) => setShowBuyModal(e)} />
       )}
     </div>
   );

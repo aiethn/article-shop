@@ -10,13 +10,13 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      state.itemCart.push(action.payload.itemCart);
+    buyItem: (state, action) => {
+      state.itemPurchased.push(action.payload.itemPurchased);
       state.coins -= action.payload.coins;
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { buyItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
