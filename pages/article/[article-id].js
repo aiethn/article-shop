@@ -1,22 +1,26 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../../styles/Article.module.css";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { BuyConfirmError } from "../../components/modals/buyConfirmError";
 import { BuyConfirmSuccess } from "../../components/modals/buyConfirmSuccess";
+import { fetchPurchased } from "../../features/Cart";
 
 export default function ArticleID() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const articleID = router.query["article-id"];
   const article = useSelector((state) => state.article.value);
+  const articlePurchased = useSelector((state) => state.cart.itemPurchased);
   const cart = useSelector((state) => state.cart);
   const [selectedArticle, setSelectedArticle] = useState("");
   const [articlePrice, setArticlePrice] = useState("");
   const [isBought, setIsBought] = useState(false);
   const [showBuyModal, setShowBuyModal] = useState("");
+  const [isFetch, setIsFetch] = useState(false);
 
   const d = new Date();
   let time = d.getTime();
@@ -25,18 +29,28 @@ export default function ArticleID() {
   const day = hour * 24;
 
   useEffect(() => {
-    if (article.length < 1) {
-      router.push("/");
-    } else {
-      const filtered = article.find((item) => item.id == articleID);
-      setSelectedArticle(filtered);
-      checkIsPurchased(filtered);
-    }
+    dispatch(fetchPurchased());
+    setIsFetch(true);
   }, []);
 
-  // useEffect(() => {
-  //   checkIsPurchased(selectedArticle);
-  // }, [showBuyModal]);
+  useEffect(() => {
+    if (isFetch) {
+      if (article.length < 1) {
+        const isPurchased = articlePurchased.find(
+          (item) => item.id == articleID
+        );
+        if (!isPurchased) router.push("/");
+        else {
+          setSelectedArticle(isPurchased);
+          checkIsPurchased(isPurchased);
+        }
+      } else {
+        const filtered = article.find((item) => item.id == articleID);
+        setSelectedArticle(filtered);
+        checkIsPurchased(filtered);
+      }
+    }
+  }, [isFetch]);
 
   useEffect(() => {
     const artDate = Date.parse(selectedArticle.published_date);

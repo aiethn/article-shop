@@ -1,8 +1,16 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../components/Card";
+import { fetchPurchased } from "../features/Cart";
 
 export default function MyArticle() {
+  const dispatch = useDispatch();
   const article = useSelector((state) => state.cart.itemPurchased);
+  const car = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(fetchPurchased());
+  }, []);
 
   return (
     <div>

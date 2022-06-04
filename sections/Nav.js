@@ -8,11 +8,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCoins } from "../features/Cart";
 import { WindowSize } from "../middleware/WindowSize";
 import styles from "../styles/Nav.module.css";
 
 export default function Nav() {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const [scroll, setScroll] = useState(false);
   const size = WindowSize();
@@ -22,7 +24,9 @@ export default function Nav() {
     }
   };
   useEffect(() => {
+    dispatch(fetchCoins());
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

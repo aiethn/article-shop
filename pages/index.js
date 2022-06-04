@@ -6,6 +6,7 @@ import { SkeletonHome } from "../components/skeleton/SkeletonHome";
 import { Pagination } from "../components/Pagination";
 import { useDispatch } from "react-redux";
 import { addArticle } from "../features/Article";
+import { fetchCart, fetchPurchased } from "../features/Cart";
 
 const optionsCat = [
   { label: "Most Viewed", value: "viewed" },
@@ -30,6 +31,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
+    dispatch(fetchPurchased());
   }, []);
 
   useEffect(() => {
