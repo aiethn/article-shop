@@ -22,6 +22,25 @@ export const localSave = (store) => (next) => (action) => {
       addNewitemPurchased(action.payload.itemPurchased)
     );
     localStorage.setItem("coins", subCoins(action.payload.coins));
+  } else if (action.type === "cart/addToCart") {
+    const addNewitemToCart = (item) => {
+      if (item) {
+        let prev = JSON.parse(localStorage.getItem("cart"));
+        if (prev != null) {
+          return JSON.stringify([...prev, item]);
+        } else return JSON.stringify([item]);
+      }
+    };
+    localStorage.setItem("cart", addNewitemToCart(action.payload));
+  } else if (action.type === "cart/deleteFromCartById") {
+    const deleteItemFromCart = (item) => {
+      if (item) {
+        const prev = JSON.parse(localStorage.getItem("cart"));
+        const newVal = prev.filter((cart) => cart.id != action.payload);
+        return JSON.stringify(newVal);
+      }
+    };
+    localStorage.setItem("cart", deleteItemFromCart(action.payload));
   } else if (action.type === "cart/getCoins") {
     const addCoins = (coins) => {
       if (coins) {

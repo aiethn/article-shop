@@ -4,10 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../../styles/Article.module.css";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBasketShopping,
+  faCheck,
+  faCreditCard,
+} from "@fortawesome/free-solid-svg-icons";
 import { BuyConfirmError } from "../../components/modals/buyConfirmError";
 import { BuyConfirmSuccess } from "../../components/modals/buyConfirmSuccess";
-import { fetchPurchased } from "../../features/Cart";
+import { addToCart, fetchPurchased } from "../../features/Cart";
 
 export default function ArticleID() {
   const dispatch = useDispatch();
@@ -15,10 +19,12 @@ export default function ArticleID() {
   const articleID = router.query["article-id"];
   const article = useSelector((state) => state.article.value);
   const articlePurchased = useSelector((state) => state.cart.itemPurchased);
+  const articleCart = useSelector((state) => state.cart.itemCart);
   const cart = useSelector((state) => state.cart);
   const [selectedArticle, setSelectedArticle] = useState("");
   const [articlePrice, setArticlePrice] = useState("");
   const [isBought, setIsBought] = useState(false);
+  const [inCart, setInCart] = useState(false);
   const [showBuyModal, setShowBuyModal] = useState("");
   const [isFetch, setIsFetch] = useState(false);
 
@@ -43,14 +49,16 @@ export default function ArticleID() {
         else {
           setSelectedArticle(isPurchased);
           checkIsPurchased(isPurchased);
+          checkInCart(isPurchased);
         }
       } else {
         const filtered = article.find((item) => item.id == articleID);
         setSelectedArticle(filtered);
         checkIsPurchased(filtered);
+        checkInCart(filtered);
       }
     }
-  }, [isFetch, articleID]);
+  }, [isFetch, articleID, articleCart]);
 
   useEffect(() => {
     const artDate = Date.parse(selectedArticle.published_date);
@@ -69,6 +77,15 @@ export default function ArticleID() {
   const checkIsPurchased = (item) => {
     const avail = cart.itemPurchased.find((x) => x.id == item.id);
     if (avail) setIsBought(true);
+  };
+
+  const checkInCart = (item) => {
+    const avail = articleCart.find((x) => x.id == item.id);
+    if (avail) setInCart(true);
+  };
+
+  const handleToCart = () => {
+    dispatch(addToCart(selectedArticle));
   };
 
   return (
@@ -145,10 +162,18 @@ export default function ArticleID() {
             </span>{" "}
           </div>
           <div className="flex h-16 text-center">
-            {/* <div className="flex align-center justify-center items-center p-2 border-2 cursor-pointer hover:bg-gray-200 mr-4 rounded-md">
-              <FontAwesomeIcon icon={faBasketShopping} className="w-6 mr-2" />
-              <p>Add To Cart</p>
-            </div> */}
+            <div
+              onClick={(e) => !inCart && handleToCart()}
+              className={`flex align-center justify-center items-center bg-white px-5 py-2 mr-4 text-sm shadow-sm bg-cyan-300 tracking-wider border rounded-xl hover:shadow-lg hover:bg-cyan-600 hover:text-white ${
+                inCart ? "" : "cursor-pointer"
+              }`}
+            >
+              <FontAwesomeIcon
+                icon={inCart ? faCheck : faBasketShopping}
+                className="w-6 mr-2"
+              />
+              <p>{inCart ? "Already in Cart" : "Add To Cart"}</p>
+            </div>
             <button
               onClick={(e) => handleOnConfirm()}
               className="flex align-center justify-center items-center bg-white px-5 py-2 text-sm shadow-sm bg-teal-300 tracking-wider border rounded-xl hover:shadow-lg hover:bg-teal-600 hover:text-white"

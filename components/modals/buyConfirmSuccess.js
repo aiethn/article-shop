@@ -2,7 +2,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { buyItem } from "../../features/Cart";
+import { buyItem, deleteFromCartById, GetTicket } from "../../features/Cart";
 
 export function BuyConfirmSuccess({
   setShowBuyModal,
@@ -13,7 +13,14 @@ export function BuyConfirmSuccess({
   const dispatch = useDispatch();
   const [isSuccess, setIsSuccess] = useState(false);
   const handleOnPay = () => {
+    if (coins >= 50000) {
+      const numberTicket = Math.floor(parseInt(coins) / 50000);
+      for (var i = 0; i < numberTicket; i++) {
+        dispatch(GetTicket());
+      }
+    }
     dispatch(buyItem({ coins: coins, itemPurchased: item }));
+    dispatch(deleteFromCartById(item.id));
     setIsSuccess(true);
   };
 

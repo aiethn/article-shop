@@ -12,6 +12,11 @@ export const fetchPurchased = createAsyncThunk("cart/fetchPurchased", () => {
   return item ? item : [];
 });
 
+export const fetchCart = createAsyncThunk("cart/fetchCart", () => {
+  const item = JSON.parse(localStorage.getItem("cart"));
+  return item ? item : [];
+});
+
 export const fetchCoins = createAsyncThunk("cart/fetchCoins", () => {
   const item = localStorage.getItem("coins");
   return item ? item : 100000;
@@ -30,6 +35,15 @@ const cartSlice = createSlice({
       state.itemPurchased.push(action.payload.itemPurchased);
       state.coins -= action.payload.coins;
     },
+    addToCart: (state, action) => {
+      state.itemCart.push(action.payload);
+    },
+    deleteFromCartById: (state, action) => {
+      const newValue = state.itemCart.filter(
+        (cart) => cart.id != action.payload
+      );
+      state.itemCart = newValue;
+    },
     getCoins: (state, action) => {
       state.coins += action.payload;
     },
@@ -44,6 +58,9 @@ const cartSlice = createSlice({
     builder.addCase(fetchPurchased.fulfilled, (state, action) => {
       state.itemPurchased = action.payload;
     });
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
+      state.itemCart = action.payload;
+    });
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
       state.coins = action.payload;
     });
@@ -53,6 +70,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { buyItem, getCoins, UseTicket } = cartSlice.actions;
+export const { buyItem, addToCart, getCoins, UseTicket, deleteFromCartById } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
