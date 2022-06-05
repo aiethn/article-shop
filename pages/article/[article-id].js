@@ -30,14 +30,14 @@ export default function ArticleID() {
 
   useEffect(() => {
     dispatch(fetchPurchased());
-    setIsFetch(true);
+    if (articlePurchased) setIsFetch(true);
   }, []);
 
   useEffect(() => {
-    if (isFetch) {
+    if (isFetch && articleID) {
       if (article.length < 1) {
         const isPurchased = articlePurchased.find(
-          (item) => item.id == articleID
+          (item) => parseInt(item.id) === parseInt(articleID)
         );
         if (!isPurchased) router.push("/");
         else {
@@ -50,7 +50,7 @@ export default function ArticleID() {
         checkIsPurchased(filtered);
       }
     }
-  }, [isFetch]);
+  }, [isFetch, articleID]);
 
   useEffect(() => {
     const artDate = Date.parse(selectedArticle.published_date);
