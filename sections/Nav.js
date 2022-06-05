@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCoins } from "../features/Cart";
+import { fetchCoins, fetchTicket } from "../features/Cart";
 import { WindowSize } from "../middleware/WindowSize";
 import styles from "../styles/Nav.module.css";
 
@@ -25,6 +25,7 @@ export default function Nav() {
   };
   useEffect(() => {
     dispatch(fetchCoins());
+    dispatch(fetchTicket());
     window.addEventListener("scroll", handleScroll);
 
     return () => {

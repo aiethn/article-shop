@@ -13,7 +13,9 @@ export function RandomPicker({ reward, isPlaying, handleOnClick }) {
 
   const handleOnSave = () => {
     handleOnClick(true);
-    dispatch(getCoins(parseInt(reward)));
+    if (reward != 0) {
+      dispatch(getCoins(parseInt(reward)));
+    }
   };
   return (
     <>

@@ -32,6 +32,26 @@ export const localSave = (store) => (next) => (action) => {
       }
     };
     localStorage.setItem("coins", addCoins(action.payload));
+  } else if (action.type === "cart/UseTicket") {
+    const subTicket = (tickets) => {
+      if (tickets) {
+        let prevtickets = localStorage.getItem("tickets");
+        if (prevtickets === null) {
+          return 1 - parseInt(tickets);
+        } else return parseInt(prevtickets) - parseInt(tickets);
+      }
+    };
+    localStorage.setItem("tickets", subTicket(1));
+  } else if (action.type === "cart/GetTicket") {
+    const addTicket = (tickets) => {
+      if (tickets) {
+        let prevtickets = localStorage.getItem("tickets");
+        if (prevtickets === null) {
+          return 1 + parseInt(tickets);
+        } else return parseInt(prevtickets) + parseInt(tickets);
+      }
+    };
+    localStorage.setItem("tickets", addTicket(1));
   }
   return next(action);
 };

@@ -4,7 +4,7 @@ const initialState = {
   itemCart: [],
   itemPurchased: [],
   coins: 100000,
-  ticket: 3,
+  ticket: 1,
 };
 
 export const fetchPurchased = createAsyncThunk("cart/fetchPurchased", () => {
@@ -15,6 +15,11 @@ export const fetchPurchased = createAsyncThunk("cart/fetchPurchased", () => {
 export const fetchCoins = createAsyncThunk("cart/fetchCoins", () => {
   const item = localStorage.getItem("coins");
   return item ? item : 100000;
+});
+
+export const fetchTicket = createAsyncThunk("cart/fetchTicket", () => {
+  const item = localStorage.getItem("tickets");
+  return item ? item : 1;
 });
 
 const cartSlice = createSlice({
@@ -39,11 +44,11 @@ const cartSlice = createSlice({
     builder.addCase(fetchPurchased.fulfilled, (state, action) => {
       state.itemPurchased = action.payload;
     });
-    // builder.addCase(fetchCoins.pending, (state) => {
-    //   state.coins = 0;
-    // });
     builder.addCase(fetchCoins.fulfilled, (state, action) => {
       state.coins = action.payload;
+    });
+    builder.addCase(fetchTicket.fulfilled, (state, action) => {
+      state.ticket = action.payload;
     });
   },
 });

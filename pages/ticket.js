@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RandomPicker } from "../components/modals/randomPicker";
-import { UseTicket } from "../features/Cart";
+import { fetchTicket, UseTicket } from "../features/Cart";
 import { RewardData } from "../data/reward";
 
 export default function Ticket() {
@@ -9,6 +9,10 @@ export default function Ticket() {
   const ticket = useSelector((state) => state.cart.ticket);
   const [reward, setReward] = useState("");
   const [showRandom, setShowRandom] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchTicket());
+  });
 
   const handleOnPlay = () => {
     setShowRandom(true);
