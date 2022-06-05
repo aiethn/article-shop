@@ -1,8 +1,8 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCoins } from "../../features/Cart";
+import { fetchCoins, getCoins } from "../../features/Cart";
 import { Payment } from "../Payment";
 
 export function Topup({ setShowTopUp }) {
@@ -10,6 +10,10 @@ export function Topup({ setShowTopUp }) {
   const [step, setStep] = useState("input");
   const [totalCoins, setTotalCoins] = useState(null);
   const [showErrorType, setShowErrorType] = useState("");
+
+  useEffect(() => {
+    dispatch(fetchCoins());
+  }, []);
 
   const handleOnNext = () => {
     if (!totalCoins) setShowErrorType("empty");

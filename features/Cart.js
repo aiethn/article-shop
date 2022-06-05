@@ -13,7 +13,7 @@ export const fetchPurchased = createAsyncThunk("cart/fetchPurchased", () => {
 });
 
 export const fetchCoins = createAsyncThunk("cart/fetchCoins", () => {
-  const item = JSON.parse(localStorage.getItem("coins"));
+  const item = localStorage.getItem("coins");
   return item ? item : 100000;
 });
 

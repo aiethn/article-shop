@@ -1,6 +1,6 @@
 export const localSave = (store) => (next) => (action) => {
   if (action.type === "cart/buyItem") {
-    const addNewitemPurchased = (item, coins) => {
+    const addNewitemPurchased = (item) => {
       if (item) {
         let prev = JSON.parse(localStorage.getItem("purchased"));
         if (prev != null) {
@@ -22,6 +22,16 @@ export const localSave = (store) => (next) => (action) => {
       addNewitemPurchased(action.payload.itemPurchased)
     );
     localStorage.setItem("coins", subCoins(action.payload.coins));
+  } else if (action.type === "cart/getCoins") {
+    const addCoins = (coins) => {
+      if (coins) {
+        let prevCoins = localStorage.getItem("coins");
+        if (prevCoins === null) {
+          return 1000000 + parseInt(coins);
+        } else return parseInt(prevCoins) + parseInt(coins);
+      }
+    };
+    localStorage.setItem("coins", addCoins(action.payload));
   }
   return next(action);
 };
