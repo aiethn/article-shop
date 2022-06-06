@@ -1,7 +1,10 @@
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function Discount() {
+export function Discount({ setCoupons }) {
+  const handleOnChange = (e) => {
+    setCoupons(e.target.value);
+  };
   return (
     <div className="bg-white rounded-lg border border-gray-200 shadow-md w-full p-4">
       <div className="relative overflow-hidden">
@@ -18,7 +21,7 @@ export function Discount() {
             className="p-5 border-t rounded-lg w-full border-2"
             placeholder="Input Code"
             type="text"
-            // onChange={(e) => handleOnChange(e)}
+            onChange={(e) => handleOnChange(e)}
           />
         </div>
       </div>

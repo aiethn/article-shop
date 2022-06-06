@@ -2,9 +2,14 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { buyItem, deleteFromCartById, getTicket } from "../../features/Cart";
+import {
+  buyItem,
+  deleteFromCartById,
+  getCoins,
+  getTicket,
+} from "../../features/Cart";
 
-export function BulkBuySuccess({ setShowModalConfirm, item, price }) {
+export function BulkBuySuccess({ setShowModalConfirm, item, price, discount }) {
   const [successBuy, setSuccessBuy] = useState(false);
   const dispatch = useDispatch();
   const handleOnBuy = () => {
@@ -13,6 +18,7 @@ export function BulkBuySuccess({ setShowModalConfirm, item, price }) {
       dispatch(deleteFromCartById(x.item.id));
     });
     setSuccessBuy(true);
+    dispatch(getCoins(discount));
     if (price >= 50000) {
       const ticketCount = Math.floor(price / 50000);
       dispatch(getTicket(ticketCount));

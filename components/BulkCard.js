@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export function BulkCard({ item, handleSelectedItem }) {
+export function BulkCard({ item, handleSelectedItem, disableOnCoupon }) {
   const [checked, setChecked] = useState(false);
   const [price, setPrice] = useState(0);
   const d = new Date();
@@ -70,6 +70,7 @@ export function BulkCard({ item, handleSelectedItem }) {
                   className="cursor-pointer"
                   type="checkbox"
                   checked={checked}
+                  disabled={disableOnCoupon ? true : false}
                   onChange={(e) => handleOnChange()}
                 >
                   {/* <span>{price}</span> */}

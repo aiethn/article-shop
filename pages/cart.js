@@ -15,6 +15,9 @@ export default function Cart() {
   const [showModalError, setShowModalError] = useState("");
   const [selectedItem, setSelectedItem] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  // const [finalPrice, setFinalPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [coupon, setCoupon] = useState("");
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -39,10 +42,22 @@ export default function Cart() {
       } else setSelectedItem([objVal]);
       setTotalPrice(totalPrice + price);
     } else {
-      const newVal = selectedItem.filter((artic) => artic.item.id != value.id);
+      const newVal = selectedItem.filter(
+        (article) => article.item.id != value.id
+      );
       setSelectedItem(newVal);
       setTotalPrice(totalPrice - price);
     }
+  };
+
+  const handleCoupon = (value) => {
+    setCoupon(value);
+    if (value === "FAQIHCAKEP100") setDiscount(totalPrice);
+    else if (value === "DISKONUNTUNG50")
+      setDiscount(Math.round(totalPrice / 2));
+    else if (value === "FAQIHCAKEP24" && totalPrice >= 50000)
+      setDiscount(20000);
+    else setDiscount(0);
   };
 
   return (
@@ -72,6 +87,7 @@ export default function Cart() {
                   key={item.id}
                   item={item}
                   handleSelectedItem={(a, b, c) => handleSelectedItem(a, b, c)}
+                  disableOnCoupon={coupon}
                 />
               ))}
             </div>
@@ -79,7 +95,19 @@ export default function Cart() {
           <div className="flex flex-col space-y-6 md:w-[30%] w-full mt-4">
             <div className="flex flex-col space-y-4 bg-white rounded-lg border border-gray-200 shadow-md w-full p-4">
               <p>The total amount of</p>
-              <p className="text-center font-bold text-2xl">{totalPrice}</p>
+              <div className="flex justify-between">
+                <p>Temporary Amount</p>
+                <p>{totalPrice}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>Discount</p>
+                <p>{discount}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>The total amount of (Including VAT)</p>
+                <p>{totalPrice - discount}</p>
+              </div>
+              {/* <p className="text-center font-bold text-2xl">{totalPrice}</p> */}
               <button
                 onClick={(e) => handleOnConfirm()}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center w-full"
@@ -87,7 +115,7 @@ export default function Cart() {
                 Go To Checkout
               </button>
             </div>
-            <Discount />
+            <Discount setCoupons={(e) => handleCoupon(e)} />
           </div>
         </div>
       )}
@@ -95,7 +123,8 @@ export default function Cart() {
         <BulkBuySuccess
           setShowModalConfirm={(e) => setShowModalConfirm(e)}
           item={selectedItem}
-          price={totalPrice}
+          price={totalPrice - discount}
+          discount={discount}
         />
       )}
       {showModalError && (
