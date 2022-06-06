@@ -25,8 +25,9 @@ export const localSave = (store) => (next) => (action) => {
   } else if (action.type === "cart/addToCart") {
     const addNewitemToCart = (item) => {
       if (item) {
-        let prev = JSON.parse(localStorage.getItem("cart"));
-        if (prev != null) {
+        const isAvail = localStorage.getItem("cart");
+        if (isAvail) {
+          let prev = JSON.parse(localStorage.getItem("cart"));
           return JSON.stringify([...prev, item]);
         } else return JSON.stringify([item]);
       }
@@ -36,8 +37,10 @@ export const localSave = (store) => (next) => (action) => {
     const deleteItemFromCart = (item) => {
       if (item) {
         const prev = JSON.parse(localStorage.getItem("cart"));
-        const newVal = prev.filter((cart) => cart.id != action.payload);
-        return JSON.stringify(newVal);
+        if (prev) {
+          const newVal = prev.filter((cart) => cart.id != action.payload);
+          return JSON.stringify(newVal);
+        }
       }
     };
     localStorage.setItem("cart", deleteItemFromCart(action.payload));
@@ -61,7 +64,7 @@ export const localSave = (store) => (next) => (action) => {
       }
     };
     localStorage.setItem("tickets", subTicket(1));
-  } else if (action.type === "cart/GetTicket") {
+  } else if (action.type === "cart/getTicket") {
     const addTicket = (tickets) => {
       if (tickets) {
         let prevtickets = localStorage.getItem("tickets");
@@ -70,7 +73,7 @@ export const localSave = (store) => (next) => (action) => {
         } else return parseInt(prevtickets) + parseInt(tickets);
       }
     };
-    localStorage.setItem("tickets", addTicket(1));
+    localStorage.setItem("tickets", addTicket(action.payload));
   }
   return next(action);
 };

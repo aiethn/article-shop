@@ -50,8 +50,8 @@ const cartSlice = createSlice({
     UseTicket: (state) => {
       state.ticket -= 1;
     },
-    GetTicket: (state) => {
-      state.ticket += 1;
+    getTicket: (state, action) => {
+      state.ticket += action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -70,7 +70,13 @@ const cartSlice = createSlice({
   },
 });
 
-export const { buyItem, addToCart, getCoins, UseTicket, deleteFromCartById } =
-  cartSlice.actions;
+export const {
+  buyItem,
+  addToCart,
+  getCoins,
+  UseTicket,
+  deleteFromCartById,
+  getTicket,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

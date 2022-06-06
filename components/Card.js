@@ -11,6 +11,8 @@ export function Card(props) {
     link,
     isLoading,
     imageLink,
+    item,
+    usage,
   } = props;
 
   return (
