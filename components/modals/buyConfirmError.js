@@ -1,5 +1,6 @@
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 export function BuyConfirmError({ setShowBuyModal, params }) {
   return (
@@ -24,12 +25,11 @@ export function BuyConfirmError({ setShowBuyModal, params }) {
             {/*footer*/}
             <div className="flex items-center justify-center p-6 pt-0 rounded-b">
               <div className="p-3 text-center space-x-4 md:block">
-                <button
-                  // onClick={(e) => setShowBuyModal(false)}
-                  className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
-                >
-                  Topup Coins
-                </button>
+                <Link href="/coins">
+                  <button className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+                    Topup Coins
+                  </button>
+                </Link>
               </div>
               <div className="p-3 text-center space-x-4 md:block">
                 <button

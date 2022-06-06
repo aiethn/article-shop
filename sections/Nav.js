@@ -36,26 +36,26 @@ export default function Nav() {
   return (
     <header
       className={`overflow-x-hidden ${
-        scroll
-          ? "border-b-[1px] dark:border-gray-900 border-gray-300/50 bg-white/50"
-          : ""
-      }  backdrop-blur supports-backdrop-blur:bg-white/95 fixed py-1 w-full top-0 z-40 dark:bg-black/50`}
+        scroll ? "border-b-[1px] border-gray-300/50 bg-white/50" : ""
+      }  backdrop-blur supports-backdrop-blur:bg-white/95 fixed py-1 w-full top-0 z-40 `}
     >
       <div className="flex justify-center w-full mx-2">
         <div className="mx-auto md:w-[950px] w-96 relative ">
-          <Link href="/">
-            <nav className="flex md:justify-center space-x-2 w-5xl my-4 text-xl ">
-              {size.width < 639 ? (
+          <nav className="flex md:justify-center space-x-2 w-5xl my-4 text-xl ">
+            {size.width < 639 ? (
+              <Link href="/">
                 <FontAwesomeIcon icon={faHome} className="w-6 cursor-pointer" />
-              ) : (
+              </Link>
+            ) : (
+              <Link href="/">
                 <a
                   className={`${styles.linkUnderline} px-4 pb-2 font-display max-w-sm font-bold font-poppins leading-tight cursor-pointer`}
                 >
                   Home
                 </a>
-              )}
-            </nav>
-          </Link>
+              </Link>
+            )}
+          </nav>
 
           <div className="absolute right-40 top-4 flex">
             <Link href="/coins">

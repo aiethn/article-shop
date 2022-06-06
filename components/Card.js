@@ -19,7 +19,7 @@ export function Card(props) {
         <div className="h-full overflow-hidden border-2 border-gray-200 rounded-md hover:border-teal-400 cursor-pointer">
           <div className="p-6">
             <img src={imageLink} alt="news image" width={500} height={500} />
-            <h4 className="my-4 text-2xl font-bold leading-8 tracking-tight text-black dark:text-white">
+            <h4 className="my-4 text-2xl font-bold leading-8 tracking-tight text-black">
               {title}
             </h4>
             {/* <p className="mb-3 prose text-gray-500 max-w-none text-sm">

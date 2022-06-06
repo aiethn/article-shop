@@ -33,7 +33,15 @@ export default function MyArticle() {
               author={item.byline}
               desc={item.abstract}
               link={item.url}
-              imageLink={item.media?.[0]["media-metadata"]?.[2].url}
+              imageLink={
+                item.media?.[0]?.["media-metadata"]?.[2].url
+                  ? item.media?.[0]["media-metadata"]?.[2].url
+                  : item.media?.[0]?.["media-metadata"]?.[1].url
+                  ? item.media?.[0]["media-metadata"]?.[1].url
+                  : item.media?.[0]?.["media-metadata"]?.[0].url
+                  ? item.media?.[0]["media-metadata"]?.[0].url
+                  : "/banner.jpg"
+              }
             />
           ))}
         </div>

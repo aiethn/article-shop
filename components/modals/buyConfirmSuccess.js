@@ -57,11 +57,19 @@ export function BuyConfirmSuccess({
             {/*footer*/}
             <div className="flex items-center justify-center p-6 pt-0 rounded-b">
               <div className="p-3 text-center space-x-4 md:block">
+                {!isSuccess && (
+                  <button
+                    onClick={(e) => setShowBuyModal("")}
+                    className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium text-lg tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+                  >
+                    Cancel
+                  </button>
+                )}
                 <button
                   onClick={(e) => (!isSuccess ? handleOnPay() : handleOnBack())}
                   className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium text-lg tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
                 >
-                  {!isSuccess ? "Pay" : "Back"}
+                  {!isSuccess ? "Pay" : "Ok"}
                 </button>
               </div>
             </div>
