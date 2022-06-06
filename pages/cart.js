@@ -54,10 +54,10 @@ export default function Cart() {
       </div>
       {articleCart.length < 1 ? (
         <div>
-          <div className="text-center text-3xl font-bold h-60 align-center flex flex-col items-center justify-center space-y-6">
+          <div className="text-center md:text-5xl text-3xl font-bold h-60 align-center flex flex-col items-center justify-center space-y-6">
             <p>No item in Cart</p>
             <Link href="/">
-              <button className="flex align-center justify-center items-center bg-white px-5 py-2 text-sm shadow-sm bg-teal-300 tracking-wider border rounded-xl hover:shadow-lg hover:bg-teal-600 hover:text-white">
+              <button className="flex align-center justify-center items-center bg-white px-5 py-2 md:text-2xl text-lg shadow-sm bg-teal-300 tracking-wider border rounded-xl hover:shadow-lg hover:bg-teal-600 hover:text-white">
                 Go Shopping
               </button>
             </Link>
