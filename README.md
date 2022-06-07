@@ -56,6 +56,16 @@ git clone https://github.com/aiethn/article-shop.git
 npm install
 ```
 
+- Add the environment by copy from .env.example and add to .env.local
+
+```bash
+BASE_URI=https://api.nytimes.com
+NEXT_PUBLIC_MOSTPOPULAR_URI=$BASE_URI/svc/mostpopular/v2
+NEXT_PUBLIC_API_KEY=[YOUR API KEY]
+```
+
+Get the API KEY from NYTIMES DEVELOPER
+
 - Run development server :
 
 ```bash
