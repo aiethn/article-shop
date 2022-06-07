@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FEATURE
 
-## Getting Started
+## ARTICLE LIST ("/")
 
-First, run the development server:
+- Show article list with pagination @4 articles
+- Filter article with Most viewed, Most emailed, Most Shared
+- Filter article with range date of previous filter until you read the article
+- Search function to find spesific article
+
+## ARTICLE DETAILS ("/article/[article-id]")
+
+- Show banner, Title, Published Date, Author, Abstract
+- Show price of article for articles published more than 7 days ago, is free. For articles published in period less than or equal to 7 days ago, is 20.000 coins. For articles published in a period less than or equal 1 day ago, is 50.000 coins.
+- Feature of add to cart
+- Feature of direct buy
+- Show read more feature for purchased article
+
+## COINS PAGE ("/coins")
+
+- Show current own coins
+- Feature of topup
+
+## TICKET PAGE ("/ticket")
+
+- Show current own ticket
+- Feature of random ticket to get some coins or maybe ZONK :)
+
+## CART PAGE ("/cart")
+
+- Show no item, only button to article page/home (if no item added to cart)
+- Show card of article list which added to cart
+- Show total amount of payment
+- Feature discount: input <b> FAQIHCAKEP100 </b> (for all free :)), <b> FAQIHCAKEP24 </b>(Discount 20000 with minimum purchase 50000), <b> DISKONUNTUNG50 </b>(for discount 50%)
+
+## MY ARTICLE PAGE ("/my-article")
+
+- Show own purchased article
+- Search feature
+
+# HOW TO RUN
+
+## LINK DEPLOYMENT : [article-shop.vercel.app](https://article-shop.vercel.app/)
+
+## RUN IN LOCAL
+
+- Clone the Repository :
+
+```bash
+git clone https://github.com/aiethn/article-shop.git
+```
+
+- Go to article shop directory
+- Install dependency :
+
+```bash
+npm install
+```
+
+- Run development server :
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- See in the browser: [localhost:3000](http://localhost:3000)
+- And happy shopping ;)

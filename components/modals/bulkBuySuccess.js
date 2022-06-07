@@ -18,7 +18,7 @@ export function BulkBuySuccess({ setShowModalConfirm, item, price, discount }) {
       dispatch(deleteFromCartById(x.item.id));
     });
     setSuccessBuy(true);
-    dispatch(getCoins(discount));
+    if (discount > 0) dispatch(getCoins(discount));
     if (price >= 50000) {
       const ticketCount = Math.floor(price / 50000);
       dispatch(getTicket(ticketCount));
